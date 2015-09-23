@@ -175,8 +175,6 @@ public class BaseAction extends ActionSupport implements ServletRequestAware, Se
 	 * @return paramValue http参数值
 	 */
 	public String get(String paramName) {
-		Map<String, Object> sss = request.getParameterMap();
-		System.out.println(sss.get(paramName));
 		return request.getParameter(paramName);
 
 	}
