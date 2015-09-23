@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- 这个是Spring的主要配置文件,用来配置事务,日志,数据源等 -->
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xmlns:aop="http://www.springframework.org/schema/aop"
+		xmlns:tx="http://www.springframework.org/schema/tx"
+		xmlns:context="http://www.springframework.org/schema/context"
+		xsi:schemaLocation="
+			http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd 
+			http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.5.xsd 
+			http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd
+			http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd"
+		default-autowire="byName">
+
+	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
+		<property name="driverClass" value="com.mysql.jdbc.Driver" />
+		<property name="jdbcUrl" value="jdbc:mysql://localhost:3306/takeout" />
+		<property name="user" value="root" />
+		<property name="password" value="559929llx" />
+	</bean>
+	
+
+	<bean id="sessionFactory" class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">
+        <property name="dataSource" ref="dataSource"/>
+        <property name="annotatedClasses">
+	        <list>
+	        	<value>com.model.takeout.Food</value>
+	        	<value>com.model.takeout.Menu</value>
+	        	<value>com.model.takeout.Order</value>
+	        	<value>com.model.takeout.Region</value>
+	        	<value>com.model.takeout.User</value>
+	        </list>
+        </property>
+    	<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">org.hibernate.dialect.MySQL5Dialect</prop>
+				<prop key="hibernate.show_sql">true</prop>
+				<prop key="hibernate.format_sql">true</prop>
+			</props>
+		</property>
+    </bean>
+    
+    <bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
+    
+    <bean id="txManager" class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+    	<property name="dataSource" ref="dataSource"/>
+    	<property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+    
+    <bean id="transactionTemplate" class="org.springframework.transaction.support.TransactionTemplate">
+    	<property name="transactionManager" ref="txManager"/>
+	</bean>
+    
+    <tx:advice id="txAdvice" transaction-manager="txManager" >
+    	<tx:attributes>
+    		<tx:method name="has*" read-only="true"/>
+    		<tx:method name="get*" read-only="true"/>
+    		<tx:method name="load*" read-only="true"/>
+    		<tx:method name="*" />
+    	</tx:attributes>
+    </tx:advice>
+    
+   
+    
+    <aop:config>
+    	<aop:advisor advice-ref="txAdvice" 
+    		pointcut="execution(* *.takeout..*Service.*(..)) "/>
+    	
+    </aop:config>
+       
+	<bean id="genericDao" class="com.takeout.dao.GenericDao">
+    	<property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+    
+    
+    <context:annotation-config/>
+    <context:component-scan base-package="com"/>
+    
+    
+
+</beans>

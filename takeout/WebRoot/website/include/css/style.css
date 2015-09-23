@@ -1,0 +1,37 @@
+body {
+	margin-left: 0px;
+	margin-top: 0px;
+	margin-right: 0px;
+	margin-bottom: 0px;
+	font-size:12px;
+	/*background:#f9f8f8;*/
+	background:#e6e6e6;
+}
+.border1 {
+	border:solid 1px #5fb043;
+	border-collapse:collapse;
+	border-spacing:0px;
+	padding:0px;
+}
+.border2
+{
+	border:solid 1px #666666;
+	border-collapse:collapse;
+	border-spacing:0px;
+	padding:0px;
+}
+.td_background
+{
+	background-image:url("../image/green_vertical_line.jpg");
+	height:30px;
+	color:#fff;
+	font-weight:bold;
+}
+.td_bgcolor
+{
+	background:#fff;
+	font-weight:bold;
+	color:#187101;
+}
+a{text-decoration:none;color:#000000;}
+a:hover{color:red;}
