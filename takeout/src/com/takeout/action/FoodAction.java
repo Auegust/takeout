@@ -47,7 +47,6 @@ public class FoodAction extends GenericAction<Food> {
 	protected JSONObject toJsonObject(Food food) throws Exception {
 		Helper record = new Helper();
 		record.put("id", food.getId());
-		record.put("image", food.getImage());
 		record.put("name", food.getName());
 		record.put("description", food.getDescription());
 		record.put("price", food.getPrice());
