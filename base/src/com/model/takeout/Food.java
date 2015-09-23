@@ -1,12 +1,17 @@
 package com.model.takeout;
-// Generated 2015-9-18 16:25:01 by Hibernate Tools 3.4.0.CR1
+// Generated 2015-9-23 15:39:14 by Hibernate Tools 3.4.0.CR1
 
 import static javax.persistence.GenerationType.IDENTITY;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.model.Model;
@@ -21,21 +26,21 @@ public class Food extends Model {
 	/**
 	 *
 	 */
-	private static final long serialVersionUID = -5099353823771326577L;
+	private static final long serialVersionUID = -3469834190869103723L;
 	private String description;
 	private Integer id;
-	private String image;
+	private List<Image> images = new ArrayList<Image>();
 	private String name;
 	private double price;
 
 	public Food() {
 	}
 
-	public Food(String name, double price, String description, String image) {
+	public Food(String name, double price, String description, List<Image> images) {
 		this.name = name;
 		this.price = price;
 		this.description = description;
-		this.image = image;
+		this.images = images;
 	}
 
 	@Column(name = "description", length = 100)
@@ -51,9 +56,9 @@ public class Food extends Model {
 		return this.id;
 	}
 
-	@Column(name = "image", length = 100)
-	public String getImage() {
-		return this.image;
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "food")
+	public List<Image> getImages() {
+		return this.images;
 	}
 
 	@Column(name = "name", length = 50)
@@ -74,8 +79,8 @@ public class Food extends Model {
 		this.id = id;
 	}
 
-	public void setImage(String image) {
-		this.image = image;
+	public void setImages(List<Image> images) {
+		this.images = images;
 	}
 
 	public void setName(String name) {
@@ -84,11 +89,6 @@ public class Food extends Model {
 
 	public void setPrice(double price) {
 		this.price = price;
-	}
-
-	@Override
-	public String toString() {
-		return "食品名称" + name;
 	}
 
 }

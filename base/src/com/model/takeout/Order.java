@@ -1,14 +1,14 @@
 package com.model.takeout;
-// Generated 2015-9-18 16:25:01 by Hibernate Tools 3.4.0.CR1
-
-import static javax.persistence.GenerationType.IDENTITY;
+// Generated 2015-9-23 15:39:14 by Hibernate Tools 3.4.0.CR1
 
 import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -25,30 +25,36 @@ public class Order extends Model {
 	/**
 	 *
 	 */
-	private static final long serialVersionUID = -3250014297111213677L;
+	private static final long serialVersionUID = -8976910478382893015L;
 	private String address;
 	private String content;
 	private Date createtime;
-	private Integer id;
+	private int id;
 	private Integer payStatus;
 	private String phoneNumber;
 	private double sum;
-	private Integer uid;
+	private User user;
 	private String username;
 
 	public Order() {
 	}
 
-	public Order(Date createtime, String content, double sum, Integer uid, String username, String phoneNumber,
-			String address, Integer payStatus) {
-		this.createtime = createtime;
-		this.content = content;
-		this.sum = sum;
-		this.uid = uid;
-		this.username = username;
-		this.phoneNumber = phoneNumber;
+	public Order(int id, User user) {
+		this.id = id;
+		this.user = user;
+	}
+
+	public Order(int id, User user, String address, String content, Date createtime, Integer payStatus,
+			String phoneNumber, double sum, String username) {
+		this.id = id;
+		this.user = user;
 		this.address = address;
+		this.content = content;
+		this.createtime = createtime;
 		this.payStatus = payStatus;
+		this.phoneNumber = phoneNumber;
+		this.sum = sum;
+		this.username = username;
 	}
 
 	@Column(name = "address", length = 200)
@@ -61,17 +67,16 @@ public class Order extends Model {
 		return this.content;
 	}
 
-	@Temporal(TemporalType.TIMESTAMP)
+	@Temporal(TemporalType.DATE)
 	@Column(name = "createtime", length = 0)
 	public Date getCreatetime() {
 		return this.createtime;
 	}
 
 	@Id
-	@GeneratedValue(strategy = IDENTITY)
 
 	@Column(name = "id", unique = true, nullable = false)
-	public Integer getId() {
+	public int getId() {
 		return this.id;
 	}
 
@@ -90,9 +95,10 @@ public class Order extends Model {
 		return this.sum;
 	}
 
-	@Column(name = "uid")
-	public Integer getUid() {
-		return this.uid;
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "uid", nullable = false)
+	public User getUser() {
+		return this.user;
 	}
 
 	@Column(name = "username", length = 50)
@@ -112,7 +118,7 @@ public class Order extends Model {
 		this.createtime = createtime;
 	}
 
-	public void setId(Integer id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 
@@ -128,8 +134,8 @@ public class Order extends Model {
 		this.sum = sum;
 	}
 
-	public void setUid(Integer uid) {
-		this.uid = uid;
+	public void setUser(User user) {
+		this.user = user;
 	}
 
 	public void setUsername(String username) {

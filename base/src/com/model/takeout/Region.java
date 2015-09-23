@@ -1,5 +1,5 @@
 package com.model.takeout;
-// Generated 2015-9-21 21:01:40 by Hibernate Tools 3.4.0.CR1
+// Generated 2015-9-23 15:39:14 by Hibernate Tools 3.4.0.CR1
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,38 +25,33 @@ public class Region extends Model {
 	/**
 	 *
 	 */
-	private static final long serialVersionUID = 9214754358858042060L;
-	private List<Region> children = new ArrayList<Region>();
+	private static final long serialVersionUID = -2515420342064110829L;
 	private int id;
 	private String name;
-	private Region parent;
 	private String phoneNumber;
 	private String postCode;
+	private Region region;
+	private List<Region> regions = new ArrayList<Region>();
 	private String type;
 
 	public Region() {
 	}
 
-	public Region(int id, Region parent, String type) {
+	public Region(int id, Region region, String type) {
 		this.id = id;
-		this.parent = parent;
+		this.region = region;
 		this.type = type;
 	}
 
-	public Region(int id, Region parent, String name, String phoneNumber, String postCode, String type,
-			List<Region> children) {
+	public Region(int id, Region region, String name, String phoneNumber, String postCode, String type,
+			List<Region> regions) {
 		this.id = id;
-		this.parent = parent;
+		this.region = region;
 		this.name = name;
 		this.phoneNumber = phoneNumber;
 		this.postCode = postCode;
 		this.type = type;
-		this.children = children;
-	}
-
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "parent")
-	public List<Region> getChildren() {
-		return this.children;
+		this.regions = regions;
 	}
 
 	@Id
@@ -71,12 +66,6 @@ public class Region extends Model {
 		return this.name;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "parentId", nullable = false)
-	public Region getParent() {
-		return this.parent;
-	}
-
 	@Column(name = "phoneNumber", length = 20)
 	public String getPhoneNumber() {
 		return this.phoneNumber;
@@ -87,13 +76,20 @@ public class Region extends Model {
 		return this.postCode;
 	}
 
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "parentId", nullable = false)
+	public Region getRegion() {
+		return this.region;
+	}
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "region")
+	public List<Region> getRegions() {
+		return this.regions;
+	}
+
 	@Column(name = "type", nullable = false, length = 10)
 	public String getType() {
 		return this.type;
-	}
-
-	public void setChildren(List<Region> children) {
-		this.children = children;
 	}
 
 	public void setId(int id) {
@@ -104,16 +100,20 @@ public class Region extends Model {
 		this.name = name;
 	}
 
-	public void setParent(Region parent) {
-		this.parent = parent;
-	}
-
 	public void setPhoneNumber(String phoneNumber) {
 		this.phoneNumber = phoneNumber;
 	}
 
 	public void setPostCode(String postCode) {
 		this.postCode = postCode;
+	}
+
+	public void setRegion(Region region) {
+		this.region = region;
+	}
+
+	public void setRegions(List<Region> regions) {
+		this.regions = regions;
 	}
 
 	public void setType(String type) {

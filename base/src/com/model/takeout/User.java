@@ -1,12 +1,14 @@
 package com.model.takeout;
-// Generated 2015-9-18 16:25:01 by Hibernate Tools 3.4.0.CR1
+// Generated 2015-9-23 15:39:14 by Hibernate Tools 3.4.0.CR1
 
-import static javax.persistence.GenerationType.IDENTITY;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.model.Model;
@@ -21,27 +23,32 @@ public class User extends Model {
 	/**
 	 *
 	 */
-	private static final long serialVersionUID = 1914328405075429208L;
+	private static final long serialVersionUID = 6018851750505876613L;
 	private String address;
-	private Integer id;
-	private Boolean locked;
+	private int id;
+	private Integer locked;
 	private String name;
+	private List<Order> orders = new ArrayList<Order>();
 	private String password;
 	private String phoneNumber;
 
 	public User() {
 	}
 
-	public User(String password) {
+	public User(int id, String password) {
+		this.id = id;
 		this.password = password;
 	}
 
-	public User(String name, String phoneNumber, String address, String password, Boolean locked) {
+	public User(int id, String name, String address, Integer locked, String password, String phoneNumber,
+			List<Order> orders) {
+		this.id = id;
 		this.name = name;
-		this.phoneNumber = phoneNumber;
 		this.address = address;
-		this.password = password;
 		this.locked = locked;
+		this.password = password;
+		this.phoneNumber = phoneNumber;
+		this.orders = orders;
 	}
 
 	@Column(name = "address", length = 200)
@@ -50,15 +57,14 @@ public class User extends Model {
 	}
 
 	@Id
-	@GeneratedValue(strategy = IDENTITY)
 
 	@Column(name = "id", unique = true, nullable = false)
-	public Integer getId() {
+	public int getId() {
 		return this.id;
 	}
 
 	@Column(name = "locked")
-	public Boolean getLocked() {
+	public Integer getLocked() {
 		return this.locked;
 	}
 
@@ -67,7 +73,12 @@ public class User extends Model {
 		return this.name;
 	}
 
-	@Column(name = "password", nullable = false)
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
+	public List<Order> getOrders() {
+		return this.orders;
+	}
+
+	@Column(name = "password", nullable = false, length = 100)
 	public String getPassword() {
 		return this.password;
 	}
@@ -81,16 +92,20 @@ public class User extends Model {
 		this.address = address;
 	}
 
-	public void setId(Integer id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 
-	public void setLocked(Boolean locked) {
+	public void setLocked(Integer locked) {
 		this.locked = locked;
 	}
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public void setOrders(List<Order> orders) {
+		this.orders = orders;
 	}
 
 	public void setPassword(String password) {

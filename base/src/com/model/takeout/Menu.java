@@ -1,5 +1,5 @@
 package com.model.takeout;
-// Generated 2015-9-18 16:25:01 by Hibernate Tools 3.4.0.CR1
+// Generated 2015-9-23 15:39:14 by Hibernate Tools 3.4.0.CR1
 
 import static javax.persistence.GenerationType.IDENTITY;
 
@@ -8,8 +8,6 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -30,71 +28,69 @@ public class Menu extends Model {
 	/**
 	 *
 	 */
-	private static final long serialVersionUID = -5347038657584722962L;
+	private static final long serialVersionUID = 1777194429567102177L;
 	private List<Menu> children = new ArrayList<Menu>();
-	private boolean display;
+	private Integer display;
 	private String icon;
 	private Integer id;
-	private boolean leaf;
+	private int leaf;
 	private String name;
 	private Integer ordercol;
 	private Menu parent;
 	private String text;
-
-	@Enumerated(EnumType.STRING)
-	private MenuType type;
+	private String type;
 	private String url;
 
 	public Menu() {
 	}
 
-	public Menu(boolean display, boolean leaf) {
-		this.display = display;
+	public Menu(int leaf) {
 		this.leaf = leaf;
 	}
 
-	public Menu(Menu parent, String icon, boolean display, boolean leaf, String name, String text, MenuType type,
-			String url, Integer ordercol, List<Menu> children) {
+	public Menu(Menu parent, Integer display, String icon, int leaf, String name, Integer ordercol, String text,
+			String type, String url, List<Menu> children) {
 		this.parent = parent;
-		this.icon = icon;
 		this.display = display;
+		this.icon = icon;
 		this.leaf = leaf;
 		this.name = name;
+		this.ordercol = ordercol;
 		this.text = text;
 		this.type = type;
 		this.url = url;
-		this.ordercol = ordercol;
 		this.children = children;
 	}
 
-	@OneToMany(mappedBy = "parent")
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "menu")
 	public List<Menu> getChildren() {
 		return this.children;
 	}
 
-	@Column(name = "display", nullable = false)
-	public boolean getDisplay() {
+	@Column(name = "display")
+	public Integer getDisplay() {
 		return this.display;
 	}
 
-	@Column(name = "icon")
+	@Column(name = "icon", length = 45)
 	public String getIcon() {
 		return this.icon;
 	}
 
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
+
 	@Column(name = "id", unique = true, nullable = false)
 	public Integer getId() {
 		return this.id;
 	}
 
 	@Column(name = "leaf", nullable = false)
-	public boolean getLeaf() {
+	public int getLeaf() {
 		return this.leaf;
 	}
 
-	@Column(name = "name")
+	@Column(name = "name", length = 45)
 	public String getName() {
 		return this.name;
 	}
@@ -110,16 +106,17 @@ public class Menu extends Model {
 		return this.parent;
 	}
 
-	@Column(name = "text")
+	@Column(name = "text", length = 45)
 	public String getText() {
 		return this.text;
 	}
 
-	public MenuType getType() {
+	@Column(name = "type", length = 45)
+	public String getType() {
 		return this.type;
 	}
 
-	@Column(name = "url")
+	@Column(name = "url", length = 100)
 	public String getUrl() {
 		return this.url;
 	}
@@ -128,7 +125,7 @@ public class Menu extends Model {
 		this.children = children;
 	}
 
-	public void setDisplay(boolean display) {
+	public void setDisplay(Integer display) {
 		this.display = display;
 	}
 
@@ -140,7 +137,7 @@ public class Menu extends Model {
 		this.id = id;
 	}
 
-	public void setLeaf(boolean leaf) {
+	public void setLeaf(int leaf) {
 		this.leaf = leaf;
 	}
 
@@ -160,18 +157,8 @@ public class Menu extends Model {
 		this.text = text;
 	}
 
-	public void setType(MenuType type) {
+	public void setType(String type) {
 		this.type = type;
-	}
-
-	public void setType(String typeString) {
-		if (typeString.equals("node")) {
-			this.type = MenuType.NODE;
-		} else if (typeString.equals("category")) {
-			this.type = MenuType.CATEGORY;
-		} else if (typeString.equals("root")) {
-			this.type = MenuType.ROOT;
-		}
 	}
 
 	public void setUrl(String url) {
