@@ -1,7 +1,9 @@
 package com.takeout.service;
 
 import java.util.List;
+import java.util.Map;
 
+import org.hibernate.criterion.DetachedCriteria;
 import org.springframework.stereotype.Component;
 
 import com.model.takeout.User;
@@ -22,4 +24,9 @@ public class UserService extends GenericService<User> {
 		return null;
 	}
 
+	@Override
+	protected DetachedCriteria getConditions(String query, Map<String, String> queryMap) {
+		// TODO Auto-generated method stub
+		return super.getConditions(query, queryMap);
+	}
 }

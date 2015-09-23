@@ -80,6 +80,7 @@ public abstract class GenericAction<E extends Model> extends BaseAction {
 	 * @throws ParseException
 	 */
 	public String list() throws Exception {
+		queryMap.put("queryParam", query);
 		ListData<E> listData = getDefService().getListData(query, queryMap, start, limit);
 		JSONArray ja = new JSONArray();
 		for (E entity : listData.getList()) {

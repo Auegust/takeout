@@ -33,12 +33,6 @@ public class FoodAction extends GenericAction<Food> {
 	}
 
 	@Override
-	public String list() throws Exception {
-		queryMap.put("queryParam", query);
-		return super.list();
-	}
-
-	@Override
 	protected void setEntity(Food food) throws Exception {
 		food.setDescription(get("description"));
 		food.setName(get("name"));
