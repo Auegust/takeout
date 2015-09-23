@@ -30,10 +30,10 @@ public class Menu extends Model {
 	 */
 	private static final long serialVersionUID = 1777194429567102177L;
 	private List<Menu> children = new ArrayList<Menu>();
-	private Integer display;
+	private boolean display;
 	private String icon;
 	private Integer id;
-	private int leaf;
+	private boolean leaf;
 	private String name;
 	private Integer ordercol;
 	private Menu parent;
@@ -44,11 +44,11 @@ public class Menu extends Model {
 	public Menu() {
 	}
 
-	public Menu(int leaf) {
+	public Menu(boolean leaf) {
 		this.leaf = leaf;
 	}
 
-	public Menu(Menu parent, Integer display, String icon, int leaf, String name, Integer ordercol, String text,
+	public Menu(Menu parent, boolean display, String icon, boolean leaf, String name, Integer ordercol, String text,
 			String type, String url, List<Menu> children) {
 		this.parent = parent;
 		this.display = display;
@@ -68,7 +68,7 @@ public class Menu extends Model {
 	}
 
 	@Column(name = "display")
-	public Integer getDisplay() {
+	public boolean getDisplay() {
 		return this.display;
 	}
 
@@ -86,7 +86,7 @@ public class Menu extends Model {
 	}
 
 	@Column(name = "leaf", nullable = false)
-	public int getLeaf() {
+	public boolean getLeaf() {
 		return this.leaf;
 	}
 
@@ -125,7 +125,7 @@ public class Menu extends Model {
 		this.children = children;
 	}
 
-	public void setDisplay(Integer display) {
+	public void setDisplay(boolean display) {
 		this.display = display;
 	}
 
@@ -137,7 +137,7 @@ public class Menu extends Model {
 		this.id = id;
 	}
 
-	public void setLeaf(int leaf) {
+	public void setLeaf(boolean leaf) {
 		this.leaf = leaf;
 	}
 
