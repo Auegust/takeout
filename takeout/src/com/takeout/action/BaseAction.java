@@ -20,6 +20,7 @@ import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.interceptor.annotations.Before;
 import com.opensymphony.xwork2.interceptor.annotations.BeforeResult;
 import com.takeout.Helper;
+import com.takeout.util.Constants;
 
 import net.sf.json.JSON;
 import net.sf.json.JSONObject;
@@ -35,30 +36,12 @@ import net.sf.json.JSONObject;
  *
  */
 public class BaseAction extends ActionSupport implements ServletRequestAware, ServletResponseAware, SessionAware {
-	public static final String AUTH_FAILD = "authFailed";
-	public static final String DATA_KEY = "data";
 
-	public static final String ENTITY_KEY = "entity";
-
-	public static final String EXCEPTION = "exception";
-	public static final String FAILED = "failed";
-	public static final String INDEX = "index";
-	public static final String INPUT = "input";
-	public static final String MSG_KEY = "msg";
-	public static final String OWNERWEBSITE = "owner";
-	public static final String PROJECTWEBSITE = "project";
-	public static final String SELECTWEBSITE = "select";
 	/**
 	 *
 	 */
 	private static final long serialVersionUID = -1802076245363405646L;
-	public static final String SUCCESS_KEY = "success";
-	public static final String TEMPLATE = "template";
-	public static final String TOTAL_COUNT_KEY = "totalCount";
 
-	public static final String VIEWPORT = "viewport";
-	public static final String VOTEWEBSITE = "vote";
-	public static final String WEBSITE = "website";
 	/**
 	 * 登陆用户,它的值来自session,如果session失效,它的值也为空
 	 */
@@ -130,7 +113,7 @@ public class BaseAction extends ActionSupport implements ServletRequestAware, Se
 	private String authFailed() throws Exception {
 		logger.info("验证失败");
 		response.setStatus(403);
-		return isAjaxRequest() ? AUTH_FAILD : VIEWPORT;
+		return isAjaxRequest() ? Constants.AUTH_FAILD : Constants.VIEWPORT;
 	}
 
 	/**
@@ -145,7 +128,7 @@ public class BaseAction extends ActionSupport implements ServletRequestAware, Se
 		Helper.setHttpSessionInThread(request.getSession());
 
 		// 身份验证
-		authedUser = (User) getSessionMap().get(Helper.AUTHED_USER);
+		authedUser = (User) getSessionMap().get(Constants.AUTHED_USER);
 		if (this.authedUser == null && !(request.getServletPath().equals("/system/initDb")
 				|| request.getServletPath().equals("/system/login")
 				|| request.getServletPath().startsWith("/website"))) {
@@ -349,7 +332,7 @@ public class BaseAction extends ActionSupport implements ServletRequestAware, Se
 	 *            执行标志
 	 */
 	protected void setJsonMessage(boolean flag) {
-		jo.put(SUCCESS_KEY, flag);
+		jo.put(Constants.SUCCESS_KEY, flag);
 	}
 
 	/**
@@ -362,7 +345,7 @@ public class BaseAction extends ActionSupport implements ServletRequestAware, Se
 	 */
 	protected void setJsonMessage(boolean flag, JSON data) {
 		setJsonMessage(flag);
-		jo.put(DATA_KEY, data);
+		jo.put(Constants.DATA_KEY, data);
 	}
 
 	/**
@@ -375,7 +358,7 @@ public class BaseAction extends ActionSupport implements ServletRequestAware, Se
 	 */
 	protected void setJsonMessage(boolean flag, String msg) {
 		setJsonMessage(flag);
-		jo.put(MSG_KEY, msg);
+		jo.put(Constants.MSG_KEY, msg);
 		response.setHeader("hasMsg", "true");
 	}
 
@@ -391,7 +374,7 @@ public class BaseAction extends ActionSupport implements ServletRequestAware, Se
 	 */
 	protected void setJsonMessage(boolean flag, String msg, JSON data) {
 		setJsonMessage(flag, msg);
-		jo.put(DATA_KEY, data);
+		jo.put(Constants.DATA_KEY, data);
 	}
 
 	public void setLimit(int limit) {

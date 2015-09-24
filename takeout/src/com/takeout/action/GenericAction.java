@@ -6,6 +6,7 @@ import com.model.Model;
 import com.takeout.ListData;
 import com.takeout.exception.DeleteForeignConstrainException;
 import com.takeout.service.GenericService;
+import com.takeout.util.Constants;
 import com.takeout.util.GenericsUtil;
 
 import net.sf.json.JSONArray;
@@ -40,7 +41,7 @@ public abstract class GenericAction<E extends Model> extends BaseAction {
 		E entity = getEntityClass().newInstance();
 		setEntity(entity);
 		getDefService().add(entity);
-		jo.put(ENTITY_KEY, toJsonObject(entity));
+		jo.put(Constants.ENTITY_KEY, toJsonObject(entity));
 		setJsonMessage(true, entity.toString().equals("") ? "新增了一条记录!" : "新增了(" + entity + ")的记录");
 		return render(jo);
 	}
@@ -86,8 +87,8 @@ public abstract class GenericAction<E extends Model> extends BaseAction {
 		for (E entity : listData.getList()) {
 			ja.add(toJsonObject(entity));
 		}
-		jo.put(DATA_KEY, ja);
-		jo.put(TOTAL_COUNT_KEY, listData.getTotal());
+		jo.put(Constants.DATA_KEY, ja);
+		jo.put(Constants.TOTAL_COUNT_KEY, listData.getTotal());
 		return render(jo);
 	}
 
@@ -109,7 +110,7 @@ public abstract class GenericAction<E extends Model> extends BaseAction {
 		E entity = getDefService().get(id);
 		setEntity(entity);
 		getDefService().update(entity);
-		jo.put(ENTITY_KEY, toJsonObject(entity));
+		jo.put(Constants.ENTITY_KEY, toJsonObject(entity));
 		setJsonMessage(true, entity.toString().equals("") ? "更新了一条记录!" : "更新了(" + entity + ")的记录");
 		return render(jo);
 	}

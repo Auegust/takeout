@@ -11,10 +11,10 @@ import org.springframework.stereotype.Component;
 import com.model.takeout.Menu;
 import com.model.takeout.MenuType;
 import com.model.takeout.User;
-import com.takeout.Helper;
 import com.takeout.LoginSessionBindingListener;
 import com.takeout.service.MenuService;
 import com.takeout.service.UserService;
+import com.takeout.util.Constants;
 import com.takeout.util.Tools;
 
 import net.sf.json.JSONArray;
@@ -64,10 +64,10 @@ public class SystemAction extends BaseAction {
 			return render(jo);
 		}
 		cleanSessionMap();
-		getSessionMap().put(Helper.LOGIN_LISTENER, new LoginSessionBindingListener(authUser));
-		getSessionMap().put(Helper.AUTHED_USER, authUser);
-		getSessionMap().put(Helper.WIDGET_URLS, getWidgetUrlsList());
-		jo.put(SUCCESS_KEY, true);
+		getSessionMap().put(Constants.LOGIN_LISTENER, new LoginSessionBindingListener(authUser));
+		getSessionMap().put(Constants.AUTHED_USER, authUser);
+		getSessionMap().put(Constants.WIDGET_URLS, getWidgetUrlsList());
+		jo.put(Constants.SUCCESS_KEY, true);
 		return render(jo);
 	}
 
@@ -80,7 +80,7 @@ public class SystemAction extends BaseAction {
 	}
 
 	public String viewport() {
-		return VIEWPORT;
+		return Constants.VIEWPORT;
 	}
 
 	private void walkMenu(Menu menu, List<String> list) {

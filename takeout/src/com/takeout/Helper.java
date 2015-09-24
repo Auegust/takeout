@@ -15,7 +15,7 @@ import org.apache.commons.lang.xwork.StringUtils;
 
 import com.model.Model;
 import com.model.takeout.User;
-import com.takeout.action.BaseAction;
+import com.takeout.util.Constants;
 import com.takeout.util.Tools;
 
 import jxl.Sheet;
@@ -30,25 +30,12 @@ import net.sf.json.JSONObject;
  */
 public class Helper {
 
-	public static final String AUTHED_USER = "authedUser";// User
-
-	public static boolean DEBUG = true;
-	private static final ThreadLocal<HttpSession> HTTP_SESSION_IN_THREAD = new ThreadLocal<HttpSession>();
-	public static final String LOGIN_LISTENER = "loginListener";
-	public static final String PRIVILEGES = "privileges";// (String)Object []
-	public static final String PRIVILEGES_STRING = "privilegesString";// "['role'],['role_view']"
-	public static final String ROLES_STRING = "rolesString";// String
-															// "['系统管理员'],['会计']"
-	public static final String WEBUSER = "webUser";
-	public static final String WIDGET_URLS = "widgets";// String
-														// "['/admin/menu.js'],['/admin/role.js']"
-
 	public static String getCell(Sheet sheet, int column, int row) {
 		return sheet.getCell(column, row).getContents().trim();
 	}
 
 	public static HttpSession getHttpSessionInThread() {
-		return Helper.HTTP_SESSION_IN_THREAD.get();
+		return Constants.HTTP_SESSION_IN_THREAD.get();
 	}
 
 	public static String getImageType(String imagePath) {
@@ -71,18 +58,18 @@ public class Helper {
 	}
 
 	public static User getUser() {
-		if (Helper.HTTP_SESSION_IN_THREAD.get() != null) {
-			return (User) Helper.HTTP_SESSION_IN_THREAD.get().getAttribute(AUTHED_USER);
+		if (Constants.HTTP_SESSION_IN_THREAD.get() != null) {
+			return (User) Constants.HTTP_SESSION_IN_THREAD.get().getAttribute(Constants.AUTHED_USER);
 		} else
 			return null;
 	}
 
 	public static void removeHttpSessionInThread() {
-		Helper.HTTP_SESSION_IN_THREAD.remove();
+		Constants.HTTP_SESSION_IN_THREAD.remove();
 	}
 
 	public static void setHttpSessionInThread(HttpSession httpSession) {
-		Helper.HTTP_SESSION_IN_THREAD.set(httpSession);
+		Constants.HTTP_SESSION_IN_THREAD.set(httpSession);
 	}
 
 	public static Date toDate(String dateString) throws ParseException {
@@ -139,26 +126,26 @@ public class Helper {
 
 	public static JSONObject toJsonObject(Collection<Model> collection) {
 		JSONObject jo = new JSONObject();
-		jo.put(BaseAction.DATA_KEY, toJsonArray(collection));
+		jo.put(Constants.DATA_KEY, toJsonArray(collection));
 		return jo;
 	}
 
 	public static JSONObject toJsonObject(Collection<Model> collection, String idProperty, String nameProperty) {
 		JSONObject jo = new JSONObject();
-		jo.put(BaseAction.DATA_KEY, toJsonArray(collection, idProperty, nameProperty));
+		jo.put(Constants.DATA_KEY, toJsonArray(collection, idProperty, nameProperty));
 		return jo;
 	}
 
 	public static JSONObject toJsonObject(Map<String, CachedValue> map) {
 		JSONObject jo = new JSONObject();
-		jo.put(BaseAction.DATA_KEY, toJsonArray(map));
+		jo.put(Constants.DATA_KEY, toJsonArray(map));
 		return jo;
 	}
 
 	public static boolean userHasPrivilege(String privilegeCode) {
 		Object[] privileges;
-		if (Helper.HTTP_SESSION_IN_THREAD.get() != null) {
-			privileges = (Object[]) Helper.HTTP_SESSION_IN_THREAD.get().getAttribute(PRIVILEGES);
+		if (Constants.HTTP_SESSION_IN_THREAD.get() != null) {
+			privileges = (Object[]) Constants.HTTP_SESSION_IN_THREAD.get().getAttribute(Constants.PRIVILEGES);
 		} else
 			return false;
 		if (privileges == null)
