@@ -2,6 +2,7 @@ package com.takeout;
 
 import java.text.DecimalFormat;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Collection;
 import java.util.Date;
 import java.util.Map;
@@ -48,6 +49,25 @@ public class Helper {
 
 	public static HttpSession getHttpSessionInThread() {
 		return Helper.HTTP_SESSION_IN_THREAD.get();
+	}
+
+	public static String getImageType(String imagePath) {
+		String temp = imagePath.toLowerCase();
+		if (temp.lastIndexOf(".jpg") != -1) {
+			return "jpg";
+		} else if (temp.lastIndexOf(".jpeg") != -1) {
+			return "jpeg";
+		} else if (temp.lastIndexOf(".gif") != -1) {
+			return "gif";
+		} else {
+			return null;
+		}
+	}
+
+	public static String getTimeNo() {
+		Date date = new Date();
+		SimpleDateFormat format = new SimpleDateFormat("yyyyMMddHHmmss");
+		return format.format(date);
 	}
 
 	public static User getUser() {

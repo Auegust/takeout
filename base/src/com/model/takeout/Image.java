@@ -3,6 +3,8 @@ package com.model.takeout;
 
 import static javax.persistence.GenerationType.IDENTITY;
 
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -25,16 +27,25 @@ public class Image extends Model {
 	 *
 	 */
 	private static final long serialVersionUID = 5495042522586296968L;
+	private Date date;
 	private Food food;
 	private Integer id;
+	private String name;
 	private String url;
 
 	public Image() {
 	}
 
-	public Image(Food food, String url) {
+	public Image(Food food, String url, String name, Date date) {
 		this.food = food;
 		this.url = url;
+		this.name = name;
+		this.date = date;
+	}
+
+	@Column(name = "date", nullable = false)
+	public Date getDate() {
+		return date;
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
@@ -51,9 +62,18 @@ public class Image extends Model {
 		return this.id;
 	}
 
-	@Column(name = "url", nullable = false, length = 45)
+	@Column(name = "name", nullable = false, length = 50)
+	public String getName() {
+		return name;
+	}
+
+	@Column(name = "url", nullable = false, length = 50)
 	public String getUrl() {
 		return this.url;
+	}
+
+	public void setDate(Date date) {
+		this.date = date;
 	}
 
 	public void setFood(Food food) {
@@ -62,6 +82,10 @@ public class Image extends Model {
 
 	public void setId(Integer id) {
 		this.id = id;
+	}
+
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	public void setUrl(String url) {
