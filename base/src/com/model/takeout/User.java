@@ -26,7 +26,7 @@ public class User extends Model {
 	private static final long serialVersionUID = 6018851750505876613L;
 	private String address;
 	private int id;
-	private Integer locked;
+	private boolean locked;
 	private String name;
 	private List<Order> orders = new ArrayList<Order>();
 	private String password;
@@ -40,7 +40,7 @@ public class User extends Model {
 		this.password = password;
 	}
 
-	public User(int id, String name, String address, Integer locked, String password, String phoneNumber,
+	public User(int id, String name, String address, boolean locked, String password, String phoneNumber,
 			List<Order> orders) {
 		this.id = id;
 		this.name = name;
@@ -64,7 +64,7 @@ public class User extends Model {
 	}
 
 	@Column(name = "locked")
-	public Integer getLocked() {
+	public boolean getLocked() {
 		return this.locked;
 	}
 
@@ -96,7 +96,7 @@ public class User extends Model {
 		this.id = id;
 	}
 
-	public void setLocked(Integer locked) {
+	public void setLocked(boolean locked) {
 		this.locked = locked;
 	}
 

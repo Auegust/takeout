@@ -62,7 +62,7 @@ public class Menu extends Model {
 		this.children = children;
 	}
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "menu")
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "parent")
 	public List<Menu> getChildren() {
 		return this.children;
 	}

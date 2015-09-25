@@ -31,6 +31,7 @@
 	        	<value>com.model.takeout.Order</value>
 	        	<value>com.model.takeout.Region</value>
 	        	<value>com.model.takeout.User</value>
+	        	<value>com.model.takeout.Image</value>
 	        </list>
         </property>
     	<property name="hibernateProperties">
