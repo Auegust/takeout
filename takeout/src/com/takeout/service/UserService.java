@@ -29,4 +29,16 @@ public class UserService extends GenericService<User> {
 		// TODO Auto-generated method stub
 		return super.getConditions(query, queryMap);
 	}
+
+	public boolean lockOrUnlockedUser(String id) {
+		User user = get(id);
+		user.setLocked(user.getLocked() ? false : true);
+		return true;
+	}
+
+	public void updateLoginSession(User user, boolean logined) {
+		user.setLogined(logined);
+		update(user);
+	}
+
 }

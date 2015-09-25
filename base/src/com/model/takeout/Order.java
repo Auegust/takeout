@@ -29,6 +29,7 @@ public class Order extends Model {
 	private String address;
 	private String content;
 	private Date createtime;
+	private String foodname;
 	private int id;
 	private Integer payStatus;
 	private String phoneNumber;
@@ -45,7 +46,7 @@ public class Order extends Model {
 	}
 
 	public Order(int id, User user, String address, String content, Date createtime, Integer payStatus,
-			String phoneNumber, double sum, String username) {
+			String phoneNumber, double sum, String username, String foodname) {
 		this.id = id;
 		this.user = user;
 		this.address = address;
@@ -55,6 +56,7 @@ public class Order extends Model {
 		this.phoneNumber = phoneNumber;
 		this.sum = sum;
 		this.username = username;
+		this.foodname = foodname;
 	}
 
 	@Column(name = "address", length = 200)
@@ -71,6 +73,11 @@ public class Order extends Model {
 	@Column(name = "createtime", length = 0)
 	public Date getCreatetime() {
 		return this.createtime;
+	}
+
+	@Column(name = "foodname", length = 450)
+	public String getFoodname() {
+		return foodname;
 	}
 
 	@Id
@@ -116,6 +123,10 @@ public class Order extends Model {
 
 	public void setCreatetime(Date createtime) {
 		this.createtime = createtime;
+	}
+
+	public void setFoodname(String foodname) {
+		this.foodname = foodname;
 	}
 
 	public void setId(int id) {

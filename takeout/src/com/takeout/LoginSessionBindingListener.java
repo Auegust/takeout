@@ -12,6 +12,7 @@ import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 
 import com.model.takeout.User;
+import com.takeout.service.UserService;
 import com.takeout.util.Tools;
 
 public class LoginSessionBindingListener implements HttpSessionBindingListener {

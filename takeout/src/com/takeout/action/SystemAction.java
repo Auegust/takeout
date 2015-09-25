@@ -71,6 +71,11 @@ public class SystemAction extends BaseAction {
 		return render(jo);
 	}
 
+	public String logout() {
+		getSessionMap().clear();
+		return LOGIN;
+	}
+
 	public void setMenuService(MenuService menuService) {
 		this.menuService = menuService;
 	}

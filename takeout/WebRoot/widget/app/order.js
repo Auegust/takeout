@@ -1,24 +1,6 @@
 
-Employee = Ext.extend(Ext.app.BaseFuncPanel,{
+OrderInfo = Ext.extend(Ext.app.BaseFuncPanel,{
 	initComponent : function(){
-		
-		var emailLink = function(v){
-		    return !v? "" : String.format('<span><a href="mailto:{0}" target="_blank" class="emailLink">{0}</a></span>',v);
-		}
-		
-		var qq = function(v){
-			return !v ? "" : String.format('<span><a target=blank href=tencent://message/?uin={0}><img border="0" SRC=http://wpa.qq.com/pa?p=1:{0}:5 alt="QQ号:{0}"></a></span>',v);
-		}
-		
-		var employeeStatus = function(v){
-			var text = v['text']||'';
-			var map = {
-				'离职' : 'red',
-				'试用' : 'blue'
-			}	 
-			return String.format('<span style="color:{0}">{1}</span>',map.text||'black',text);
-		}
-		
 		Ext.apply(this,{
 			gridConfig:{
 				cm:new Ext.grid.ColumnModel([
@@ -59,9 +41,9 @@ Employee = Ext.extend(Ext.app.BaseFuncPanel,{
 					{xtype: 'f-dict',fieldLabel: '在职情况',hiddenName: 'status',kind: 'employeeStatus'}
 				]
 			},
-			url:ctx+'/employee'	
+			url:ctx+'/order'	
 		});
-		Employee.superclass.initComponent.call(this);
+		OrderInfo.superclass.initComponent.call(this);
 				
 	}
 	

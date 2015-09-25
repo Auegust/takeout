@@ -19,7 +19,7 @@ import com.takeout.util.GenericsUtil;
 
 /**
  * 一个泛型Service,针对一个Entity提供一系列模板方法．
- * 
+ *
  * @param <E>
  *            Entity的类型
  * @author Neo
@@ -55,7 +55,7 @@ public abstract class GenericService<E> extends BaseService {
 
 	/**
 	 * 属性相等条件查询 例如 name = lisa
-	 * 
+	 *
 	 * @param propertyName
 	 *            属性名
 	 * @param value
@@ -68,7 +68,7 @@ public abstract class GenericService<E> extends BaseService {
 
 	/**
 	 * 属性条件查询 例如 age > 30,name = lisa
-	 * 
+	 *
 	 * @param propertyName
 	 *            属性名
 	 * @param operator
@@ -85,7 +85,7 @@ public abstract class GenericService<E> extends BaseService {
 
 	/**
 	 * 属性相等条件查询,得到的是一个唯一值
-	 * 
+	 *
 	 * @param propertyName
 	 *            属性名
 	 * @param value
@@ -157,7 +157,7 @@ public abstract class GenericService<E> extends BaseService {
 
 	/**
 	 * override以改变数据集的默认排序方式
-	 * 
+	 *
 	 * @return
 	 */
 	protected Order getOrder() {
@@ -166,13 +166,13 @@ public abstract class GenericService<E> extends BaseService {
 
 	/**
 	 * 转换为主键的值，这种实现会有问题
-	 * 
+	 *
 	 * @param id
 	 * @return 实体List
 	 */
 	private Serializable getPk(String id) {
 		try {
-			long longPk = Long.valueOf(id);
+			int longPk = Integer.valueOf(id);
 			return longPk;
 		} catch (NumberFormatException e) {
 			return id;

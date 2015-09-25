@@ -18,7 +18,6 @@
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/asm-3.1.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/aspectjweaver.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/c3p0-0.9.1.jar"/>
-	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/cglib-2.2.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/commons-beanutils-1.7.0.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/commons-chain-1.1.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/commons-collections-3.1.jar"/>
@@ -63,5 +62,6 @@
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/struts2-spring-plugin-2.1.2.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/xbean-spring-3.6.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/xwork-core-2.1.5.jar"/>
+	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/cglib-2.2.jar"/>
 	<classpathentry kind="output" path="WebRoot/WEB-INF/classes"/>
 </classpath>
