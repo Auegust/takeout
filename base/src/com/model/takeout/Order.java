@@ -1,6 +1,8 @@
 package com.model.takeout;
 // Generated 2015-9-23 15:39:14 by Hibernate Tools 3.4.0.CR1
 
+import static javax.persistence.GenerationType.IDENTITY;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -8,6 +10,7 @@ import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
@@ -28,11 +31,11 @@ public class Order extends Model {
 	/**
 	 *
 	 */
-	private static final long serialVersionUID = -8976910478382893015L;
+	private static final long serialVersionUID = 3968813071718506723L;
 	private String address;
 	private Date createtime;
 	private List<Food> foods = new ArrayList<Food>();
-	private long id;
+	private int id;
 	private Integer payStatus;
 	private String phoneNumber;
 	private double sum;
@@ -42,11 +45,11 @@ public class Order extends Model {
 	public Order() {
 	}
 
-	public Order(Integer id) {
+	public Order(int id) {
 		this.id = id;
 	}
 
-	public Order(Integer id, User user) {
+	public Order(int id, User user) {
 		this.id = id;
 		this.user = user;
 	}
@@ -79,8 +82,9 @@ public class Order extends Model {
 	}
 
 	@Id
-	@Column(name = "id", unique = true, nullable = false, insertable = true, updatable = true)
-	public long getId() {
+	@GeneratedValue(strategy = IDENTITY)
+	@Column(name = "id", unique = true, nullable = false)
+	public int getId() {
 		return this.id;
 	}
 
@@ -122,7 +126,7 @@ public class Order extends Model {
 		this.foods = foods;
 	}
 
-	public void setId(long id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 
