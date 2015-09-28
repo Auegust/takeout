@@ -8,9 +8,9 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -28,15 +28,20 @@ public class Food extends Model {
 	 */
 	private static final long serialVersionUID = -3469834190869103723L;
 	private String description;
-	private Integer id;
+	private long id;
 	private List<Image> images = new ArrayList<Image>();
 	private String name;
+	private List<Order> orders = new ArrayList<Order>();
 	private double price;
 
 	public Food() {
 	}
 
-	public Food(String name, double price, String description, List<Image> images) {
+	public Food(Integer id) {
+		this.id = id;
+	}
+
+	public Food(String name, Double price, String description, List<Image> images) {
 		this.name = name;
 		this.price = price;
 		this.description = description;
@@ -52,11 +57,11 @@ public class Food extends Model {
 	@GeneratedValue(strategy = IDENTITY)
 
 	@Column(name = "id", unique = true, nullable = false)
-	public Integer getId() {
+	public long getId() {
 		return this.id;
 	}
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "food")
+	@OneToMany(mappedBy = "food")
 	public List<Image> getImages() {
 		return this.images;
 	}
@@ -64,6 +69,11 @@ public class Food extends Model {
 	@Column(name = "name", length = 50)
 	public String getName() {
 		return this.name;
+	}
+
+	@ManyToMany(mappedBy = "foods")
+	public List<Order> getOrders() {
+		return orders;
 	}
 
 	@Column(name = "price", precision = 10)
@@ -75,7 +85,7 @@ public class Food extends Model {
 		this.description = description;
 	}
 
-	public void setId(Integer id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 
@@ -87,7 +97,11 @@ public class Food extends Model {
 		this.name = name;
 	}
 
-	public void setPrice(double price) {
+	public void setOrders(List<Order> orders) {
+		this.orders = orders;
+	}
+
+	public void setPrice(Double price) {
 		this.price = price;
 	}
 

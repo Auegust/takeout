@@ -26,7 +26,7 @@ public class Region extends Model {
 	 *
 	 */
 	private static final long serialVersionUID = -2515420342064110829L;
-	private int id;
+	private long id;
 	private String name;
 	private String phoneNumber;
 	private String postCode;
@@ -37,13 +37,13 @@ public class Region extends Model {
 	public Region() {
 	}
 
-	public Region(int id, Region region, String type) {
+	public Region(Integer id, Region region, String type) {
 		this.id = id;
 		this.region = region;
 		this.type = type;
 	}
 
-	public Region(int id, Region region, String name, String phoneNumber, String postCode, String type,
+	public Region(Integer id, Region region, String name, String phoneNumber, String postCode, String type,
 			List<Region> regions) {
 		this.id = id;
 		this.region = region;
@@ -57,7 +57,7 @@ public class Region extends Model {
 	@Id
 
 	@Column(name = "id", unique = true, nullable = false)
-	public int getId() {
+	public long getId() {
 		return this.id;
 	}
 
@@ -92,7 +92,7 @@ public class Region extends Model {
 		return this.type;
 	}
 
-	public void setId(int id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 

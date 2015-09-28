@@ -29,7 +29,7 @@ public class Image extends Model {
 	private static final long serialVersionUID = 5495042522586296968L;
 	private Date date;
 	private Food food;
-	private Integer id;
+	private long id;
 	private String name;
 	private String url;
 
@@ -58,7 +58,7 @@ public class Image extends Model {
 	@GeneratedValue(strategy = IDENTITY)
 
 	@Column(name = "id", unique = true, nullable = false)
-	public Integer getId() {
+	public long getId() {
 		return this.id;
 	}
 
@@ -80,7 +80,7 @@ public class Image extends Model {
 		this.food = food;
 	}
 
-	public void setId(Integer id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 

@@ -25,7 +25,7 @@ public class User extends Model {
 	 */
 	private static final long serialVersionUID = 6018851750505876613L;
 	private String address;
-	private int id;
+	private long id;
 	private boolean locked = false;
 	private boolean logined;
 	private String name;
@@ -53,6 +53,10 @@ public class User extends Model {
 		this.orders = orders;
 	}
 
+	public User(Integer id) {
+		this.id = id;
+	}
+
 	@Column(name = "address", length = 200)
 	public String getAddress() {
 		return this.address;
@@ -60,7 +64,7 @@ public class User extends Model {
 
 	@Id
 	@Column(name = "id", unique = true, nullable = false)
-	public int getId() {
+	public long getId() {
 		return this.id;
 	}
 
@@ -98,7 +102,7 @@ public class User extends Model {
 		this.address = address;
 	}
 
-	public void setId(int id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 

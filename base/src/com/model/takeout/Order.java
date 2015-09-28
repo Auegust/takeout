@@ -1,13 +1,16 @@
 package com.model.takeout;
 // Generated 2015-9-23 15:39:14 by Hibernate Tools 3.4.0.CR1
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -27,10 +30,9 @@ public class Order extends Model {
 	 */
 	private static final long serialVersionUID = -8976910478382893015L;
 	private String address;
-	private String content;
 	private Date createtime;
-	private String foodname;
-	private int id;
+	private List<Food> foods = new ArrayList<Food>();
+	private long id;
 	private Integer payStatus;
 	private String phoneNumber;
 	private double sum;
@@ -40,33 +42,29 @@ public class Order extends Model {
 	public Order() {
 	}
 
-	public Order(int id, User user) {
+	public Order(Integer id) {
+		this.id = id;
+	}
+
+	public Order(Integer id, User user) {
 		this.id = id;
 		this.user = user;
 	}
 
-	public Order(int id, User user, String address, String content, Date createtime, Integer payStatus,
-			String phoneNumber, double sum, String username, String foodname) {
-		this.id = id;
+	public Order(User user, String address, Date createtime, Integer payStatus, String phoneNumber, Double sum,
+			String username) {
 		this.user = user;
 		this.address = address;
-		this.content = content;
 		this.createtime = createtime;
 		this.payStatus = payStatus;
 		this.phoneNumber = phoneNumber;
 		this.sum = sum;
 		this.username = username;
-		this.foodname = foodname;
 	}
 
 	@Column(name = "address", length = 200)
 	public String getAddress() {
 		return this.address;
-	}
-
-	@Column(name = "content", length = 200)
-	public String getContent() {
-		return this.content;
 	}
 
 	@Temporal(TemporalType.DATE)
@@ -75,15 +73,14 @@ public class Order extends Model {
 		return this.createtime;
 	}
 
-	@Column(name = "foodname", length = 450)
-	public String getFoodname() {
-		return foodname;
+	@ManyToMany
+	public List<Food> getFoods() {
+		return foods;
 	}
 
 	@Id
-
-	@Column(name = "id", unique = true, nullable = false)
-	public int getId() {
+	@Column(name = "id", unique = true, nullable = false, insertable = true, updatable = true)
+	public long getId() {
 		return this.id;
 	}
 
@@ -117,19 +114,15 @@ public class Order extends Model {
 		this.address = address;
 	}
 
-	public void setContent(String content) {
-		this.content = content;
-	}
-
 	public void setCreatetime(Date createtime) {
 		this.createtime = createtime;
 	}
 
-	public void setFoodname(String foodname) {
-		this.foodname = foodname;
+	public void setFoods(List<Food> foods) {
+		this.foods = foods;
 	}
 
-	public void setId(int id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 
@@ -141,7 +134,7 @@ public class Order extends Model {
 		this.phoneNumber = phoneNumber;
 	}
 
-	public void setSum(double sum) {
+	public void setSum(Double sum) {
 		this.sum = sum;
 	}
 
