@@ -16,9 +16,11 @@ public class FoodService extends GenericService<Food> {
 	@Override
 	protected DetachedCriteria getConditions(String query, Map<String, String> queryMap) {
 		DetachedCriteria criteria = super.getConditions(query, queryMap);
-		String queryParam = queryMap.get("queryParam");
-		if (queryParam != null && !queryParam.equals("")) {
-			criteria.add(Restrictions.like("name", queryParam, MatchMode.ANYWHERE));
+		if (queryMap != null) {
+			String queryParam = queryMap.get("queryParam");
+			if (queryParam != null && !queryParam.equals("")) {
+				criteria.add(Restrictions.like("name", queryParam, MatchMode.ANYWHERE));
+			}
 		}
 		return criteria;
 	}

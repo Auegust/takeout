@@ -1,5 +1,7 @@
 package com.takeout.action;
 
+import java.util.List;
+
 import javax.annotation.Resource;
 
 import org.springframework.context.annotation.Scope;
@@ -10,8 +12,10 @@ import com.takeout.Helper;
 import com.takeout.service.GenericService;
 import com.takeout.service.UserService;
 import com.takeout.util.Constants;
+import com.takeout.util.PinYin;
 import com.takeout.util.Tools;
 
+import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
 @Component
@@ -27,6 +31,23 @@ public class UserAction extends GenericAction<User> {
 	@Override
 	public GenericService<User> getDefService() {
 		return userService;
+	}
+
+	public String getUsers() throws Exception {
+		List<User> userList = getDefService().getListData().getList();
+		JSONArray ja = new JSONArray();
+		for (User user : userList) {
+			String pinyin = PinYin.toPinYinString(user.getName());
+			if (pinyin.startsWith(getQuery().toUpperCase()) || user.getName().startsWith(getQuery())) {
+				JSONObject record = new JSONObject();
+				record.put("id", user.getId());
+				record.put("text", user.getName());
+				record.put("pinyin", pinyin);
+				ja.add(record);
+			}
+		}
+		jo.put("data", ja);
+		return render(jo);
 	}
 
 	public UserService getUserService() {

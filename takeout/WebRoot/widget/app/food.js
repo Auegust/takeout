@@ -53,7 +53,7 @@ FoodList = Ext.extend(Ext.app.BaseFuncPanel, {
 			}, {
 			    xtype : 'htmleditor',
 			    fieldLabel : '详情',
-			    name : 'content',
+			    name : 'description',
 			    height : 220,
 			    allowBlank : false
 			} ]

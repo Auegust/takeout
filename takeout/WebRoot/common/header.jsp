@@ -15,15 +15,7 @@
 <script>
 	ctx = '<%=request.getContextPath()%>';
 	loginUser = {
-		userName : '<s:property value="#session.authedUser.displayName" escape="false"/>',
-		privileges : <s:property value="#session.privilegesString" escape="false" default="[]"/>,
-		roles : <s:property value="#session.rolesString" escape="false" default="[]"/>,
-		ownRole : function(roleName){
-			return loginUser.roles.indexOf(roleName) >= 0;
-		},
-		ownPrivilege : function(privilegeCode){
-			return loginUser.privileges.indexOf(privilegeCode) >= 0;
-		}
+		name : '<s:property value="#session.authedUser.name" escape="false"/>'
 	}
 	
 </script>

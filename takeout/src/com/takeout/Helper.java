@@ -14,6 +14,7 @@ import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.lang.xwork.StringUtils;
 
 import com.model.Model;
+import com.model.takeout.Food;
 import com.model.takeout.User;
 import com.takeout.util.Constants;
 import com.takeout.util.Tools;
@@ -80,6 +81,10 @@ public class Helper {
 		return Tools.date2String(date);
 	}
 
+	public static Food toFood(String id) {
+		return (id == null || id.equals("")) ? null : new Food(Integer.parseInt(id));
+	}
+
 	public static JSONArray toJsonArray(Collection<Model> collection) {
 		return toJsonArray(collection, "id", "name");
 	}
@@ -140,6 +145,11 @@ public class Helper {
 		JSONObject jo = new JSONObject();
 		jo.put(Constants.DATA_KEY, toJsonArray(map));
 		return jo;
+	}
+
+	public static User toUser(String id) {
+
+		return (id == null || id.equals("")) ? null : new User(Integer.parseInt(id));
 	}
 
 	public static boolean userHasPrivilege(String privilegeCode) {
@@ -215,6 +225,16 @@ public class Helper {
 		return jsonObject.put(key, o);
 	}
 
+	public JSONObject put(String key, Food food) {
+		JSONObject jo = new JSONObject();
+		if (food != null) {
+			jo.put("id", food.getId());
+			jo.put("name", food.getName());
+			jsonObject.put(key, jo);
+		}
+		return jo;
+	}
+
 	public Object put(String key, int o) {
 		return jsonObject.put(key, o);
 	}
@@ -241,6 +261,16 @@ public class Helper {
 
 	public Object put(String key, String o) {
 		return jsonObject.put(key, o);
+	}
+
+	public Object put(String key, User user) {
+		JSONObject jo = new JSONObject();
+		if (user != null) {
+			jo.put("id", user.getId());
+			jo.put("name", user.getName());
+			jsonObject.put(key, jo);
+		}
+		return jsonObject;
 	}
 
 	public String toString(int indentFactor) {
