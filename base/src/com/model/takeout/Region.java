@@ -29,32 +29,32 @@ public class Region extends Model {
 	 *
 	 */
 	private static final long serialVersionUID = -2515420342064110829L;
+	private List<Region> children = new ArrayList<Region>();
 	private long id;
 	private String name;
-	private String phoneNumber;
-	private String postCode;
-	private Region region;
-	private List<Region> regions = new ArrayList<Region>();
+	private Region parent;
 	private String type;
 
 	public Region() {
 	}
 
-	public Region(Integer id, Region region, String type) {
+	public Region(Integer id, Region parent, String type) {
 		this.id = id;
-		this.region = region;
+		this.parent = parent;
 		this.type = type;
 	}
 
-	public Region(Integer id, Region region, String name, String phoneNumber, String postCode, String type,
-			List<Region> regions) {
+	public Region(Integer id, Region parent, String name, String type, List<Region> children) {
 		this.id = id;
-		this.region = region;
+		this.parent = parent;
 		this.name = name;
-		this.phoneNumber = phoneNumber;
-		this.postCode = postCode;
 		this.type = type;
-		this.regions = regions;
+		this.children = children;
+	}
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "parent")
+	public List<Region> getChildren() {
+		return this.children;
 	}
 
 	@Id
@@ -70,30 +70,19 @@ public class Region extends Model {
 		return this.name;
 	}
 
-	@Column(name = "phoneNumber", length = 20)
-	public String getPhoneNumber() {
-		return this.phoneNumber;
-	}
-
-	@Column(name = "postCode", length = 20)
-	public String getPostCode() {
-		return this.postCode;
-	}
-
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "parentId", nullable = false)
-	public Region getRegion() {
-		return this.region;
-	}
-
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "region")
-	public List<Region> getRegions() {
-		return this.regions;
+	public Region getParent() {
+		return this.parent;
 	}
 
 	@Column(name = "type", nullable = false, length = 10)
 	public String getType() {
 		return this.type;
+	}
+
+	public void setChildren(List<Region> children) {
+		this.children = children;
 	}
 
 	public void setId(long id) {
@@ -104,20 +93,8 @@ public class Region extends Model {
 		this.name = name;
 	}
 
-	public void setPhoneNumber(String phoneNumber) {
-		this.phoneNumber = phoneNumber;
-	}
-
-	public void setPostCode(String postCode) {
-		this.postCode = postCode;
-	}
-
-	public void setRegion(Region region) {
-		this.region = region;
-	}
-
-	public void setRegions(List<Region> regions) {
-		this.regions = regions;
+	public void setParent(Region parent) {
+		this.parent = parent;
 	}
 
 	public void setType(String type) {

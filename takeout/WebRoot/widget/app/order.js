@@ -31,13 +31,16 @@ OrderInfo = Ext.extend(Ext.app.BaseFuncPanel, {
 	var payRender = function(v) {
 	    return "lallalal";
 	}
-
+	var userRender = function(v) {
+	    return v.name;
+	}
 	Ext.apply(this, {
 	    url : ctx + '/order',
 	    gridConfig : {
 		cm : new Ext.grid.ColumnModel([ new Ext.grid.RowNumberer(), {
-		    header : '用户名',
-		    dataIndex : 'username',
+		    header : '用户',
+		    dataIndex : 'user',
+		    renderer : userRender,
 		    sortable : true
 		}, {
 		    header : '电话号码',

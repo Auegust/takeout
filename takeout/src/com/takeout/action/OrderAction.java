@@ -40,7 +40,6 @@ public class OrderAction extends GenericAction<Order> {
 		order.setAddress(get("address"));
 		order.setPayStatus(0);
 		order.setPhoneNumber(get("phoneNumber"));
-
 		order.setUser(Helper.toUser(get("user")));
 		order.setUsername(get("username"));
 		order.getFoods().clear();

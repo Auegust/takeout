@@ -35,8 +35,6 @@ public class RegionAction extends GenericAction<Region> {
 	@Override
 	protected void setEntity(Region region) throws Exception {
 		region.setName(get("name"));
-		region.setPhoneNumber(get("phoneNumber"));
-		region.setPostCode(get("postCode"));
 		region.setType(get("type"));
 	}
 
@@ -49,9 +47,8 @@ public class RegionAction extends GenericAction<Region> {
 		Helper record = new Helper();
 		record.put("name", region.getName());
 		record.put("id", region.getId());
-		record.put("phoneNumber", region.getPhoneNumber());
-		record.put("postCode", region.getPostCode());
 		record.put("type", region.getType());
+
 		return record.getJsonObject();
 	}
 
